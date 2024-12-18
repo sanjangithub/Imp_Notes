@@ -1,0 +1,15 @@
+For Nexus repository to use in your local : 
+--------------------------------------------
+
+1. First we need to connect with the server. This can be done by going to the Nexus.exe file which will be in the bin file.
+									   ---------			       --- 
+
+2. The above step can be done only when you run the command prompt as administrator.
+
+3. Then run Nexus.exe /run --> This will start the server and when we hit localhost:8081 this will get connected to our server which is running in the cmd(Which we have run as the administrator).
+
+4. Then we won't able to type anything in the cmd. If you need to type any command or stop the server, We can use the below command.
+   
+   ctrl + c --> This will allow us to type again or sometimes it will shutdown the server.
+   Nexus.exe /stop --> Used to stop the server(Another method for stopping the server).
+   Nexus.exe /install "Nexus-Repository-Service" --> Used to install the service once again in your local(If you loose everything, Remember to use this command. This is the starting process).
