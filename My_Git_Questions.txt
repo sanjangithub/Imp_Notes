@@ -1,0 +1,551 @@
+
+Git questions
+-------------
+
+What is Git, and why is it used?
+
+Ans - Git is a Hosting platform where the developers can work individually. Hosting their code in a remote repository, Flexibility for the developers while working on the same repository using the branching concept, Code back-up, deploying the changes without affecting the main code and track the change history of their project are the advantages of it.
+
+
+
+What is a repository in Git?
+
+Ans - A repository is like a place where we can store our code, track version changes, gather information on previous commits, and determine how many branches were created for the project. With the repository It'll be useful for us to track the change history & project information.
+
+
+
+What is the difference between Git and GitHub?
+
+Ans - Git is used to manage and organizes the code changes in our local. It keeps a record of every change was made to the code. The other hand GitHub is a online hosting platform where we can store all those changes in a remote repository which helps us to store our code and share with other people. 
+
+In short, git is used to manage our code changes & GitHub is the place where we store our changes and share them.
+
+
+
+What are the basic Git commands you know?
+
+Ans - git init, git clone <repo link>, git branch <branch name>, git checkout <Branch name>, git commit, git add <file name>, git add .(To add all the files in the working directory), git push, git remote origin <origin link>
+
+
+
+How do you initialize a new Git repository?
+
+Ans - By using git init command in our current working directory we can able to initialize a new local git repo in our machine.
+
+
+
+What is the difference between git init and git clone?
+
+Ans -  git init will initialize an empty local repository in the current working directory in our machine. So that it allows us version controlling from the scratch.
+
+       While git clone is used to get a copy of the project or the code that will get saved in our local machine. This contains all the code files with the track of version change.
+
+
+
+
+What is a commit in Git? How do you create one?
+
+Ans - commit in git is a snapshot of the changes that we made in our repository. This will have the record of the change, who made the change and what is the change.
+
+The commit can be done with two steps:
+
+1. add the files which needs to be staged using git add <File name> command.
+2. Then use git commit -m "Custom commit message" command to commit our changes.
+
+
+
+
+What is the purpose of git add?
+
+Ans - The purpose of Git add is to stage the files which needs to be pushed into the repo. Only when the files are staged, We can push the changes into our repo.
+
+The purpose of git add is hold the changes in the working directory. Preparing them for the next commit. Once the necessary files were staged using git add command we can commit them using git commit command. Only then we can able to push our changes into our repo.
+
+
+
+Explain the difference between git add and git commit.
+
+Ans - git add is used to store the changes in our working directory & Can able to stage them for the next commit.
+      Once the staging is done we can use git commit to commit all our changes in the branch which we are working. It'll create a snapshot of our changes & push those changes into our repo.
+
+
+
+
+What is the Git staging area?
+
+Ans - The staging area contains all our saved changes which is used to create a snapshot of our changes and it holds all the changes that should be included in the next commit. Once the staging is done using git add command, We can save those changes using git commit.
+
+
+
+How do you check the current status of your Git repository?
+
+Ans - We can use git status command, This command gives us information about 
+      Which branch we are working on, The files which are modified, staged & has untracked changes, And the files which are still need to be staged.
+
+
+
+What does git status show?
+
+Ans - It gives information about
+
+1. Currently working branch name
+2. Staged, Modified & unstaged files information
+
+
+
+How do you view the commit history in Git?
+
+Ans - To view the commit history, We can use git log command. This'll give all the previous commits history. It gives us commit hash which is a unique number, Date & time of the commit, Author of the commit & The commit message which has info about the changes.
+
+
+
+What is the difference between git pull and git fetch?
+
+Ans - Functionality of both the commands are same, To fetch the new changes in the project. But the main diff is
+
+git fetch - It'll fetch all the new changes, But it won't save those changes in our branch. It allows us to first review those changes and we merge those changes.
+git pull - It'll also fetch those new changes and it will merge those changes into our branch. 
+
+So git pull will only downloads or fetch the changes into the branch & git pull can able to merge those changes into our branch.
+
+
+
+
+How do you push changes to a remote repository?
+
+Ans - First we need to ensure all our changes should be committed in our local repo. Once our changes got committed and pushed into our local repository, Then we need to use git push <remote name> <branch name> command to push all those changes into our remote repo.
+
+ex - git push origin main
+
+
+
+What is the purpose of git push?
+
+Ans - Git push is the command we use to push all our changes from local to remote repo. What are all the committed changes were present in our repo we can push or save them using git push command.
+
+
+
+Explain git branch and its usage.
+
+Ans - A branch in git is like a snapshot of the code. This will create a separate line for the developers to fix their issues and add features. With this branch we can do the changes without affecting the main code. After we done the necessary changes in our code the branch will create a snapshot of those changes or we can say it will hold our code including the new changes.  Once we are done with our changes with the help of pull request, once we get approval from our team for the PR, We can merge our changes into the main code/branch that contains our changes.
+
+
+
+How do you create a new branch in Git?
+
+Ans - In git we can use git branch <branch -name> command to create a new branch in our local repo. To push that branch into the remote repo we need to use git push -u <origin name>command so that we can see this branch in the remote repo too. 
+
+Or else we can create and switch the branches at a time using this git checkout -b <branch-name> command. This will create a new branch and can shift to it.
+
+
+
+
+What is the difference between git merge and git rebase?
+
+Ans - Both git merge & git rebase have the similar functionality. They integrate the changes from one branch to another branch. But the main difference comes on how the commit history is stored.
+
+Git merge:- It'll merge the changes from the feature to main by keeping the record of commit history
+
+Git rebase:- It'll also merge the changes on top of the main branch, But it won't store the commit history. It linearizes the commit history by creating a new series of commits.
+
+in short if we need the entire commit history we can prefer git merge, Else we need our commit history to be clean we can prefer git rebase.
+
+
+
+
+How do you switch branches in Git?
+
+Ans - We can switch branched in git using git checkout <branch-name> command. This helps us to switch from one branch to another.
+We can also use git checkout -b <branch-name> command. This will create and checkout the branch automatically.
+
+
+
+What does git checkout do?
+
+Ans - In a repo, We have many branches including the main branch and other feature branches. Git checkout is used to switch between those branches. We need to use git checkout <branch-name> command for switching between the branches.
+
+
+
+What is a merge conflict, and how can it be resolved?
+
+Ans - Merge conflict happens when git does not understand which changes to be merged.
+
+Ex: Two people are working on a same code by creating their own branches. After they are done with their changes, They will push their changes into the main code. But git does not understand which of these changes can be merged or to keep. So in this type of situation merge conflicts will happen.
+
+How to resolve?
+---------------
+
+Git will provide the info about where the merge conflict was happen
+We can resolve it manually by combining the changes or rewriting those changes
+Once changes are done, We can add to the staging and push them to the repo
+Then we can merge our change with the main code.
+
+
+
+
+How do you delete a branch locally in Git?
+
+Ans - We can delete the branch using git branch -d <branch-name> command. But first we need to ensure that we should checkout to another branch. If we are on the same branch which we want to delete it won't get deleted.
+
+Here -d stands for delete. This will delete the branch safely even if it got merged into the main/master branch.
+
+If you want to delete a branch which isn't merged yet, We can force delete it by using git branch -D <branch-name>. This command will delete the branch locally.
+
+
+
+
+
+What does git log display?
+
+Ans - Git log is the command used to get the commit history of that repo. It can show what are all the previous commits that were happen, Who authorized it, Date & time of the commit & unique commit hash number. 
+
+We can also get this info in simple one liner using git log --online command.
+       						    ----------------
+
+
+
+
+Explain the difference between git reset and git revert.
+
+Ans - both have the similar functionality, To erase or to get to the previous point. But there is a slight difference in the commit history management.
+
+git reset - This helps us by moving the head point to the previous one. .
+
+Ex: If you want to remove some files from the staging area, We can do that using the git reset command. This will remove the files and also the committed files from the repo. This will delete or alter the previous commit message. It's preferable when we are working in our local.
+
+git revert - This will also undo the changes but by adding another commit message of what previous commit message has. It won't delete any commit messages or alters any of the commit history. Revert is the safer option when we are working with a team. It won't disturb the other work and maintains the record of the commit history without deleting anything.
+
+
+
+What is the purpose of .gitignore?
+
+Ans - .gitignore is a file which is used to store the unwanted files in our project. When we mention what are the files which we don't want to be tracked or shared those kind of files can be mentioned in this .gitignore file. So that git will won't track these files anymore. 
+
+
+
+How do you add a file to .gitignore?
+
+Ans - We can open the .gitignore file and we can include all the files which we want git to be ignored.
+
+This .gitignore file is in the root folder of our project. We can create one text file and name it as .gitignore file if it is not available. Inside the file we can specify the files which we want git to be ignored.
+
+
+
+
+What is a detached HEAD in Git?
+
+Ans - detached HEAD state occurs when the HEAD of the git is not pointing to the branch and it is pointing to the specific commit which is in the past. As in this state whatever changes we have done, Those changes will be saved until we do not switch to other branch. This can be useful when we are doing some testing on the previous commits. This will happen when you checkout the a specific commit instead of a branch. HEAD in this will always point to the latest commit in the branch.
+
+
+
+How do you rename a branch in Git?
+
+Ans - git branch -m new branch name -> This command is used to rename the currently working branch.
+
+git branch -m old-branch-name new-branch-name -> This is used to rename the other branch which we are not currently working on.
+
+
+
+
+
+Explain the concept of a "remote" in Git.
+
+Ans - What remote is referred here is, It is a centralized server or a place where we can clone the code, push or pull the changes from the different branches. This centralized server is located at some specific location, From there we can perform our preferred operations.
+
+Ex - Github is a remote web application hosting server, Which is located at somewhere. Here we can create our repo's to work collaboratively.
+
+Remote in git refers to the repositories which are stored at some other location. All the repositories hosted in the web hosting service like GitHub, Are stored at some other location.
+
+
+
+
+
+How do you set up a remote repository?
+
+Ans - First navigate to the GitHub. Primarily you need to have an account in the GitHub. In the dashboard you can find a + icon, There you can find the option for creating a repository.
+Click on the create repository, Give a name to the repository. You can have your repo either as pubic(visible to everyone) or private(Visible only for you). Later you can include .gitignore file which is optional in some cases. And below click on create. Then the repo will appear on the dashboard.
+
+After that you can link your local repo to your remote repo by using git remote add <remote repo name> <branch name> This will create a stream line between local and remote repo.
+
+
+
+
+
+
+What is origin in Git?
+
+Ans - Origin is the default name for the remote repo while we are connecting from local to remote repo by Git. This way git will know where to store the files or fetch the files from. That is called origin.
+
+git remote add origin <GitHub link> is the command we can use to set the origin between local and remote repo.
+
+
+
+
+
+
+How do you remove a file from the staging area without deleting it?
+
+Ans - We can use git reset <file name> command to unstage the files which we do not want to commit. This way we can safely remove the files which we do not want to stage. The unstaged files contains all the changes, They won't get deleted after they got unstaged. It tells git to stop tracking these files for now so it won't include them in the next commit.
+
+
+
+
+
+What is the purpose of git diff?
+
+Ans - This will show what are the changes present in the files. With this we can check what are the changes we have done. 
+
+If we want to check the differences in the staged files then we can use git diff command. It'll show all the changes in the unstaged files.
+
+We can use git diff --staged command to check the changes in the staged files.
+
+
+
+
+
+How do you create a tag in Git?
+
+Ans - We can use git tag <tag name> command to create a tag. These tags are like bookmarks for specific commits, often used for the release versions
+
+
+
+
+What is the difference between an annotated tag and a lightweight tag?
+
+Ans - Lightweight tag is just a normal tag which can be created by using git tag <tag-name> command. These are the normal tags.
+Annotated tag on other hand is a tag that we can include other extra things like date, Auther name, A message. Here we can include additional information if we want to by using git tag -a <version-name> -m <custom message> command.
+
+
+
+
+How do you remove a commit from the commit history?
+
+Ans - There are two commands to delete the commit from the commit history. 
+
+1. git reset - This is useful when the changes were not yet in the remote repo. This is ideal for the local repo. We can use git reset --soft HEAD~1. This will delete the commit and points to the previous commit without undoing the changes.
+
+2. git revert - This is ideal when the files are already on the remote repo. We need to use git revert <commit-hash-number> command for this. It will not delete any commit from the commit history, but it'll add another commit message by undoing the previous commit changes. This is the safest option for the shared communities. As it will maintain the commit history track without deleting any commits.
+
+
+
+
+
+What is a fork, and how is it different from a branch?
+
+Ans - If we does not have any permission to access the remote repository, We can use Fork option. This will download a copy of that repository in our local machine. So that we can contribute our work to that repository. Once changes are done we can raise the PR, The authorized people will review it and once we get the approval they can merge our changes into the main/master code. As working on this fork copy repo, It won't affect the original repo.
+
+While branch is the parallel version of the code within the same repository which re usually used to do the bug fixes or implementing new features without impacting the main code.
+
+
+
+
+
+How do you stash changes in Git, and when would you use this feature?
+
+Ans - Stashing is nothing but storing the changes without committing them. Whenever we want to do something without committing and loosing the changes we can stash those changes. Stash will store those changes temporarily. 
+
+This will be useful whenever we need to switch from one to another branch without loosing the data. Else i can be useful whenever we need to test our changes without committing them.
+
+These are the stash commands
+
+1. git stash -> To stash the changes temporarily.
+2. git stash list -> Shows list of stash
+3. git stash apply -> Apply the latest changes.
+
+
+
+
+
+
+What does git remote -v show?
+
+Ans - This command will show the url's which are linked with remote repo and local git repo. Here -v refers to the verbose. This will show two url's for both fetch and pull. These url's have our user name and repository name.
+
+ex- D:\Java_Practice>git remote -v
+origin  https://github.com/sanjangithub/Git_Practice.git (fetch)
+origin  https://github.com/sanjangithub/Git_Practice.git (push)
+
+
+
+
+
+Explain the purpose of git config.
+
+Ans - This is the command which we use to set the configuration settings. This will control the git behaviour. In this file we can set the configurations as per our need(Like local, system or global). git config --list will give all the configurations as a list.
+
+
+
+
+
+How do you discard all local changes in the working directory?
+
+Ans - If we want to delete the changes which are in local repo, We can use git checkout -- command. It'll remove all the changes in the working directory and returns them to the previous committed state.
+
+If we want to delete the staged changes we can use git reset --hard command. This command will not only discard changes in the working directory but will also remove any staged changes.
+ 
+Note - Both these commands are destructive. Once the data is lost we cannot bring them back.
+
+
+
+
+
+
+What is HEAD in Git?
+
+Ans -  HEAD is like a pointer in git. It'll show the current state of the project like which branch we are in the repo by showing the latest commit. So we'll know the surrent state of the branch which we are working on. This is what it will show when you checkout a branch.
+
+When you checkout a specific commit, It'll become detached HEAD and the changes you made in that will remain until you won't switch to the other branch. Once you switched to another branch the changes in the detached HEAD will be lost.
+
+
+
+
+
+
+How do you check out a specific commit in Git?
+
+Ans - We can use git checkout <commit-hash-number> command. With this we can able to checkout the specific commit which we want. While checking out this specific commit we will get detached HEAD. The changes won't be saved.
+
+
+
+
+
+
+What is cherry-picking in Git?
+
+Ans - Cherry-picking is a concept in git where you can select and apply the changes from a specific commits from different branches. This will allows us to pick the necessary and selective commits from different branches and merges them into the main/master code instead of going for merge or rebase. 
+
+git cherry-pick <commit-hash-number> is the command to pick the specific commits.
+
+
+
+
+
+How can you undo the last commit?
+
+Ans - git reset --soft HEAD~1 is the command we can use to undo the last commit but it keeps the changes in it. It won't delete those changes. This is ideal command for local repo.
+
+If we want to delete the commit with all the changes we can use git reset --hard HEAD~1 command. This will delete the commit along with the changes and it will return to the previous commit. Once this is done we won't able to get our changes beck.
+
+
+
+
+
+
+What is git blame, and how is it useful?
+
+Ans - The git blame command is useful to track about who made the changes or commits. When you give this command this will give information about who made the change, What change did they made, When they committed this change(With date & time) & unique commit hash number for each line of code.
+
+Git blame <file-name.extension>. 
+
+This is not about criticising or to blame something for what they've done. It is to track down who did these changes.
+
+Ex: If there is a bug in the code, With git blame command you can know whose code is causing the issue and tracking will be easier.
+
+
+
+
+
+
+
+How do you clone a specific branch of a repository?
+
+Ans - We can use git clone -b <branch-name> <remote-repo-name>. This command will help us to clone a specific branch from the repo without giving the history about the other branches.
+
+
+
+
+What does git clean do?
+
+Ans - Git clean command will remove all the untracked files. Here untracked files refer to the files which neither added to staging nor committed in git. Those files will get removed as they were untracked by git. This helps you clean up your workspace by removing files that are not part of the version control system.
+
+
+
+How do you check if a branch is already merged into another branch?
+
+Ans - We can use git branch --merged <branch-name>. This will give info whether the branch was merged into the master or not.
+
+if we want to check any branch that haven't been merged using git branch --no-merge <branch-name> command.
+
+
+
+
+
+How do you check the differences between two commits in Git?
+
+Ans - We can use git diff command along with the commit-hash numbers. When you need to know the difference between two specific commits, We can use the below command.
+
+git diff <commit-hash1> <commit-hash2> -> This will give the difference between the specified commits.
+
+If you want the differences should get highlighted word-level difference instead if line-by-line, Use the below command.
+
+git diff --color-words <commit-hash1> <commit-hash2>
+
+
+
+
+
+How do you check the status of the working directory in Git?
+
+Ans - We can use git status command for this. We will get the information about 
+
+1. Which branch we are currently on
+2. Changes that should be committed &
+3. Files which are not tracking by git or the files which are not staged.
+
+
+
+
+
+While working on a feature, you realize you need to address an urgent bug fix that requires immediate attention. How would you handle temporarily setting aside your current changes to focus on the bug fix without committing incomplete work?
+
+Ans - In this case, The changes in the feature branch can be stored temporarily using git stash. Stash will temporarily store our changes without staging the changes. Once the bug fix issue is resolved, We can come back to our feature branch and resume our work by applying the stash which was stored previously.
+
+
+
+
+
+
+How do you securely store credentials in GitHub?
+
+Ans - 
+1. Use Personal Access Tokens (PAT) or SSH keys for authentication.
+2. Store credentials securely with Git Credential Manager or in environment variables.
+3. Never commit credentials to your repository, and use .gitignore to exclude them.
+4. For CI/CD, use GitHub Secrets for secure token management.
+
+
+
+
+If a file is suddenly deleted in Git, how do you get it back?
+
+Ans - 
+
+1. If the File Was Deleted Locally but Not Staged -> git checkout -- <file-name>
+2. If the File Was Deleted and Staged for Commit -> git reset HEAD <file-name>
+3. If the File Was Deleted and Committed -> git checkout <commit-hash> -- <file-name>
+4. Using git restore (if available). In the new version of git we can use the restore command to get the deleted file back. -> git restore <file-name>
+
+
+
+
+
+Why and when would you use the git cherry-pick command?
+
+Ans - Cherry-picking is used when we need to merge specific commits from one branch to another branch without merging all the changes. This process allows to pick specific commits and merge them into the branch we need.
+
+
+
+
+
+
+What is the purpose of .gitignore?
+How do git merge and git rebase differ?
+How do git reset and git revert differ?
+How do git fetch and git pull differ?
+What is a Git Merge Conflict?
+Why do merge conflicts happen?
+How do you handle merge conflicts in Git?
+What are some key features of GitHub?
+What are the types of merge?
+Explain Git branching in your project.
+What are the commands for resolving conflicts?
