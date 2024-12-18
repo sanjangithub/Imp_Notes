@@ -1,0 +1,108 @@
+1. File and Directory Management
+--------------------------------
+
+
+•	ls - Lists files and directories in the current directory.
+•	cd - Changes the current directory.
+•	pwd - Displays the current directory path.
+•	mkdir - Creates a new directory.
+•	rm - Removes files or directories (use rm -r for directories).
+•	cp - Copies files or directories.
+•	mv - Moves or renames files or directories.
+•	touch - Creates an empty file.
+•	cat - Displays the contents of a file.
+•	nano, vim, or vi - Text editors to create or edit files.
+
+
+2. File Permissions and Ownership
+---------------------------------
+•	chmod - Changes file permissions (e.g., chmod 755 filename).
+•	chown - Changes file ownership (e.g., chown user:group filename).
+•	ls -l - Lists files with detailed permissions and ownership.
+
+
+3. Searching and Finding Files
+------------------------------
+•	find - Searches for files in a directory hierarchy (e.g., find /path -name filename).
+•	grep - Searches for text patterns in files (e.g., grep 'pattern' filename).
+•	locate - Quickly finds the location of files (must be installed and updated).
+
+
+4. Process Management
+----------------------
+•	ps - Shows currently running processes (use ps aux for detailed output).
+•	top or htop - Displays active processes and system resource usage.
+•	kill - Terminates a process by its PID (e.g., kill 1234).
+•	killall - Kills all instances of a specific program.
+•	systemctl - Manages services (e.g., systemctl start nginx).
+•	service - Controls services (e.g., service apache2 restart).
+
+
+5. Networking and Connectivity
+-------------------------------
+•	ping - Tests connectivity to a network host.
+•	curl - Transfers data from or to a server, useful for API testing.
+•	wget - Downloads files from the internet.
+•	netstat - Shows network connections, routing tables, and more.
+•	ss - Displays socket statistics, useful for checking active connections.
+•	ifconfig or ip - Shows network interface configuration.
+•	traceroute - Traces the route packets take to a network host.
+•	nslookup - Queries DNS servers to find domain-related information.
+
+
+6. Disk and Storage Management
+------------------------------
+•	df - Displays disk space usage by file system.
+•	du - Shows disk usage of files and directories (useful with -h for human-readable format).
+•	mount / umount - Mounts or unmounts file systems.
+•	fdisk - Manages disk partitions (requires root).
+•	lsblk - Lists all block devices (disks and partitions).
+
+
+7. System Monitoring and Performance
+-------------------------------------
+•	free - Shows memory usage.
+•	vmstat - Displays virtual memory statistics.
+•	uptime - Shows how long the system has been running.
+•	dmesg - Shows kernel ring buffer messages, useful for troubleshooting hardware issues.
+•	iostat - Reports CPU and I/O statistics.
+•	sar - Collects and displays system activity information.
+
+
+8. Archiving and Compression
+----------------------------
+•	tar - Archives multiple files into one file and compresses it (e.g., tar -czvf archive.tar.gz /path).
+•	zip / unzip - Compresses and decompresses files with .zip format.
+•	gzip / gunzip - Compresses or decompresses files with .gz format.
+
+
+9. SSH and Remote Connection
+-----------------------------
+•	ssh - Connects to a remote machine via SSH (e.g., ssh user@host).
+•	scp - Securely copies files between hosts over SSH (e.g., scp file user@host:/path).
+•	rsync - Syncs files and directories between systems, often used for backups.
+
+
+10. Automation and Scripting Basics
+------------------------------------
+•	echo - Displays a line of text or variables (e.g., echo "Hello World").
+•	cron - Schedules tasks (e.g., crontab -e to edit cron jobs).
+•	alias - Creates shortcuts for commands (e.g., alias ll='ls -la').
+•	&& / ; / | - Operators to chain or pipe commands (e.g., command1 && command2).
+•	for, while, if - Basic loops and conditionals for scripting in shell scripts.
+
+
+11. File and System Information
+--------------------------------
+•	uname - Shows system information (e.g., uname -a for all details).
+•	hostname - Displays or sets the system hostname.
+•	uptime - Tells how long the system has been running.
+•	whoami - Prints the current user.
+•	history - Shows command history.
+
+
+12. Package Management
+-----------------------
+•	Ubuntu/Debian: apt-get, apt - Installs, updates, and removes packages (e.g., apt-get update, apt-get install package).
+•	CentOS/RHEL: yum, dnf - Installs, updates, and removes packages (e.g., yum install package).
+
