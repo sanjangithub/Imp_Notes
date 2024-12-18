@@ -13,3 +13,5 @@ For Nexus repository to use in your local :
    ctrl + c --> This will allow us to type again or sometimes it will shutdown the server.
    Nexus.exe /stop --> Used to stop the server(Another method for stopping the server).
    Nexus.exe /install "Nexus-Repository-Service" --> Used to install the service once again in your local(If you loose everything, Remember to use this command. This is the starting process).
+
+Path for nexus.exe --> C:\Program Files\Nexus\nexus-3.75.1-01-java17-win64\nexus-3.75.1-01\bin>nexus.exe /run
