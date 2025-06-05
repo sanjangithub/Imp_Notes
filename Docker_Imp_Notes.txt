@@ -1,0 +1,435 @@
+1. Simple difference between virtualization & containerization.
+
+Logical separation of both os and kernel for each vm is virtualization. Each vm have their own os, memory, cpu, kernel.
+
+Sharing of the host os & kernel for containers is called containerization. It doesn't have all the things separately for this. It'll share the host os & kernel. That's what it makes isolation easy.
+
+
+
+2. What is a kernel?
+
+Kernel is the heart of the cpu. It helps to communicate with the hardware like keyboard, mouse etc, Allotting CPU time for a specific tasks.
+
+
+
+
+3. What is nginx & what it's used for?
+
+Nginx is a web server which is used to run the web applications. Coming to tomcat it's a application server which will interact with the backend of the application. 
+
+While nginx will be  interacting with the front-end like handling the incoming HTTPS requests, Load balancing, Reverse proxy, SSL & TCS data transmission, Caching for quick loading of the frequently visiting sites and Great for loading the static web pages. Not that great with the dynamic web pages. That will be done with the application server like tomcat.
+
+
+
+
+4. What is an image?
+
+The docker will package the application code & all it's dependencies into a single unit called 'Image'. This makes sharing & running of the application in another machine easier.
+
+Terminology definition for image
+---------------------------------
+
+A docker image is a read-only Template that contains a set of instructions for creating a container that can run on the docker platform.
+
+It provides a convenient way to package up applications and preconfigured server environments which you can use for your own private use or share publicly with other Docker users.
+
+"A Docker image is a read-only template that contains a set of instructions for creating a self-contained, isolated container that can run on the Docker platform."
+
+
+
+
+5. Docker engine
+-----------------
+
+- Docker engine is the main component for docker. With this we can create the images, creates containers for them to run the application, Manages the life cycle of the container.
+
+- We can install this as an application. Like we install the apps like VLC video player, postman like that.
+
+
+
+6. Docker Networking
+---------------------
+
+- There are 3 types of Virtual Network components were present in the docker. We can say them as three components.
+
+1. Bridge
+----------
+
+The bridge driver creates an internal network within a single docker host. Containers placed within this network can communicate with each other but are isolated from containers, not on the internal network. Bridge is the default driver when running single containers or when using Docker compose.
+
+
+Bridge: Provides a secure and isolated environment for containers to communicate within a specific network.
+
+
+
+2. Host
+--------
+
+When using the host driver the container shares the network stack of the Docker host-appearing as if the container is the host itself, from a networking perspective.
+
+Host: Provides direct access to the host machine's network, which can be convenient but also introduces potential security risks.
+
+
+
+3. None
+--------
+
+The none driver simply disables networking for a container making it isolated from other containers.
+
+None: Completely isolates the container from any network, which might be necessary for certain security-sensitive applications.
+
+
+
+7. What is networking?
+-----------------------
+
+- Networking means a collection of devices which are working together. These devices will be connected using internet.
+
+
+
+8. What is docker host?
+------------------------
+
+- A Docker Host is simply any machine (physical or virtual) that has the Docker Engine installed and running.
+- It's the foundation for running Docker containers.
+- Docker Host = Machine + Docker Engine
+The Docker Host provides the necessary environment and resources for building, running, and managing Docker containers.
+
+
+9. What is meant by docker service?
+------------------------------------
+
+- Presence of multiple docker containers is called services.
+
+
+
+Basic commands of docker:
+-------------------------
+
+docker --version   --> To get the docker version
+-----------------
+
+
+
+docker image ls   --> To get the list of all images.
+----------------
+
+
+
+docker login   --> To login to the docker account
+------------- 
+
+
+docker pull  --> To clone or download the image of a product.
+------------
+
+
+docker create --name <custom name of the container> <image name>  --> To create a container using image name.
+-------------
+
+
+docker start  --> To start the container or to run.
+------------
+
+
+docker stop --> To stop the container.
+-----------
+
+docker build -t smoothjiggler/badminton-api-manual-image .
+----------------------------------------------------------
+|
+--> Command for building our image in the docker desktop. smoothjiggler is our private repositories in the docker hub, in the office they have their own custom name. If you want to put the image in the docker hub then you can use smoothjiggler/<custom image name>, else no need. followed by /and the custom name for the image. We can give any name for this.
+
+
+docker run -d --name <custom name of the container> -p 8080:80 <image name> 
+---------------------------------------------------------------------------   | ---> -d stands for detached mode & -p for port. Means it'll just login to the container and leaves the control to us. Else we need to give ctrl + c if there is no response. This is a combination of two commands. 1. Creation of a container & 2. Starting or running of the container.
+
+
+docker run -d --name <custom name of the container> -net host <image name> or docker run -d --name <custom name of the container> -net none <image name>  
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+|
+---> This is the command to run the containers with the network specified as host or none. -p is for the port. We can declare it with -p 8080:80. And -net is for network. We can give either host or none. By default all the containers will connect to the docker0 bridge interface for bridge network connection. So no need to specify.
+
+- If security is the concern then better go for bridge as the communication will be done securely.
+
+
+
+docker ps  --> To get the list of running containers.
+----------
+
+
+docker ps -a   --> To get the list of stopped containers.
+------------
+
+
+
+docker exec -it <custom name given to the container> /bin/bash (or) docker exec -it <custom name given to the container> sh   --> Command to login to the container. Here we can use "exit" 
+-----------------------------------------------------------------------------------------------------------------------------
+
+once we want to get out from the container.
+
+
+
+
+docker kill <custom name given to the container (or) the container id generated by the docker> --> To forcefully stop the container if there is no response even after many troubleshooting
+-----------------------------------------------------------------------------------------------
+
+
+
+docker rm <custom name given to the container>  -->  To delete the container. (Note: First stop the container before going to deleting it. Else it won't get deleted.)
+-----------------------------------------------
+
+
+
+docker rmi <image name>   -->  To delete the image. i stands for image.
+------------------------
+
+
+
+docker network create <custom name without ant double quotes> --> To create a network.
+-------------------------------------------------------------
+
+
+
+docker network rm <name of the network> --> To delete the network.
+---------------------------------------
+
+
+
+docker network ls --> To get list of networks.
+-----------------
+
+
+
+docker network connect <network name container name>  --> to connect a container to the network.
+----------------------------------------------------
+
+
+
+docker run -d --name hitman-container -p 9092:8086 --net hitman-mysql-network -e MYSQL_HOST=mysql-container -e MYSQL_PORT=3306 -e MYSQL_DB_NAME=hitman -e MYSQL_USER=root -e MYSQL_PASSWORD=sanjan@root hitman-image  --> Command to connect to the network and MySQL db container
+----------------------------------------
+
+
+
+docker run -d --name <custom name> --> mysql-container -p 3307:3306 -e MYSQL_ROOT_PASSWORD=sanjan@root -e MYSQL_DATABASE=hitman <Give the image name> --> MySQL --> To create a container 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+for the MySQL db.
+
+
+
+docker volume create <Custom-volume-name> --> To create a volume.
+-----------------------------------------
+
+
+docker volume ls --> Command to get list of volumes.
+----------------
+
+
+docker volume inspect <volume-id or volume-name> --> Command to inspect or to know the details about our volumes.
+------------------------------------------------
+
+
+docker volumes rm <volume id> --> Command to delete a volume.
+-----------------------------
+
+
+docker volume prune --> This also deletes the volumes, but the difference is it'll delete all the volumes which are not mapped or used by at least one container.
+-------------------
+
+
+docker logs <custom-container-name>  --> Command to check logs from a particular container.
+-----------------------------------
+
+
+
+DOCKER COMPOSE COMMANDS:
+------------------------
+
+docker compose stop --> This commands stops the running containers without removing them. Just a temporary stop.
+-------------------
+
+
+docker compose start  --> Command to restart those stopped containers created by docker compose.
+--------------------
+
+
+docker compose down -v --> which removes all volumes associated with that specific Compose project. Here, -v means volumes tag.
+----------------------
+
+
+docker compose up --build --> To build and up the images and containers.
+--------------------------
+
+
+docker compose down --rmi all -v  --> This will remove all the images, containers, networks, volumes created by compose file at once. Here, -v means volumes tag.
+--------------------------------
+
+
+
+
+
+
+
+LINUX COMMANDS:
+---------------
+
+Ipconfig --> for getting the local ip address of the host (Windows)
+ifconfig --> Same but for Linux OS.
+
+dir --> Windows
+ls --> Linux
+
+doskey /history --> To get the previous used commands in the CMD (Windows).
+history --> Linux 
+
+cls --> clear screen command in windows
+clear --> Linux
+
+
+
+
+
+Docker image building commands:
+-------------------------------
+
+FROM:
+
+Purpose: Specifies the base image to use as the starting point for your Docker image.
+Example: FROM ubuntu:latest
+
+
+RUN:
+
+Purpose: Executes any commands within the image.
+Example:
+RUN apt-get update && apt-get install -y <package>
+RUN mkdir -p /app
+
+* We take plain image of ubuntu or any os. In that we don't have nano, apache etc, It's just a plain image without unnecessary things. If you want all the necessary tools to be installed into our image this run command will execute those commands in the preparation period. Simply it'll install all the necessary tools with the commands mentioned in the dockerfile. It'll install all those tools while the image is getting build.
+
+
+COPY:
+
+Purpose: Copies files or directories from your local machine to the image.
+Example: COPY . /app
+
+
+ADD: Better to use add more than copy. Because we can add links in the add and it can extract and copy file like zip etc. We don't get this benefit from copy attribute.
+
+Purpose: Similar to COPY, but can also extract files from archives (like .tar, .gz, .zip).
+Example: ADD my_archive.tar.gz /app
+
+
+WORKDIR:
+
+Purpose: Sets the working directory within the container.
+Example: WORKDIR /app
+
+
+CMD:
+
+Purpose: Specifies the default command to run when the container starts.
+Example: CMD ["executable", "param1", "param2"] or CMD ["executable" "param1" "param2"]
+
+
+ENTRYPOINT:
+
+Purpose: Defines the executable and its arguments. More robust than CMD.
+Example: ENTRYPOINT ["executable", "param1", "param2"]
+
+
+ENV:
+
+Purpose: Sets environment variables within the container.
+Example: ENV MY_VAR="my_value"
+
+
+EXPOSE:
+
+Purpose: Declares which ports the container will listen on.
+Example: EXPOSE 8080
+
+
+VOLUME:
+
+Purpose: Creates a mount point for data volumes, which persist even if the container is removed.
+Example: VOLUME ["/data"]
+
+
+
+USER:
+
+Purpose: Specifies the user or group to run commands as within the container.
+Example: USER myuser
+
+
+ARG:
+
+Purpose: Defines build-time arguments that can be passed to the docker build command.
+Example: ARG MY_VERSION
+
+
+LABEL:
+
+Purpose: Adds metadata to the image (e.g., version, author, maintainer).
+Example: LABEL version="1.0" author="John Doe"
+
+
+ONBUILD:
+
+Purpose: Specifies instructions that should be executed when this image is used as the base image for another image.
+Example: ONBUILD RUN echo "This will run when the image is used as a base"
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1. Why Containers Don’t “Bring Their Own OS” (But Appear To)
+When you use FROM ubuntu:latest in a Dockerfile, it seems like you're including a full Ubuntu OS, but that’s not actually the case. Here's what really happens:
+
+The ubuntu:latest image does not include the entire Ubuntu operating system.
+It only includes the user-space components of Ubuntu, like libraries and tools (e.g., apt, bash, glibc).
+The Linux kernel, which is the core of the OS, is shared with the host system and not included in the image.
+
+
+Let’s compare the ubuntu:latest image in Docker to a full Ubuntu operating system:
+
+---------------------------------------------------------------------------------------------------------------------
+| Aspect  |   Full Ubuntu OS	                                 |  ubuntu:latest Docker Image                      |
+---------------------------------------------------------------------------------------------------------------------
+														    |
+Kernel	  |    Included (required for a complete OS)	         |  Not included (uses the host's kernel)           |
+Size	  |    Large (typically a few GB)	                 | Lightweight (~29 MB for ubuntu:latest)           |
+Purpose	  |    General-purpose OS for running on hardware	 | Minimal setup to run apps in containers          |
+---------------------------------------------------------------------------------------------------------------------
+
+
+
+Why Containers Are More Preferable:
+
+Lightweight: Containers don’t bring their own OS—they share the host’s OS, so they’re smaller and faster.
+------------
+
+Efficient: You can run many containers on a single machine without wasting resources, unlike VMs.
+----------
+
+Faster Startup: Containers start in seconds, while VMs take minutes because they need to boot their OS.
+---------------
+
+Portability: Containers can easily move between machines, whether it's your laptop, a server, or the cloud, because they include only what the app needs.
+------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

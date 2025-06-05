@@ -1,0 +1,35 @@
+Networking:  Communication between one or more devices or here in docker we can say containers, then that communication is called "Networking".
+
+
+There are 3 types of networks available in docker.
+
+1. Bridge:
+----------
+
+* This is the default network assigned to the containers if we do not specify the type.
+* Docker has docker0. This docker0 is the one that gives the IP address to the containers in the host (like 172.0.12.2, 172.0.12.3 etc).
+* There is no direct connection between the containers. That communication happens through the docker0.
+ 
+  eg: container1 wants to communicate with container2, then the request will go to docker0 and docker0 sends the message to container2.
+ 
+* So no direct connection to the containers. So, the containers are connected internally and isolated.
+* This is moderate in security.
+
+
+
+2. Host:
+--------
+
+* We need to specify while creating the network like --type=host.
+* We can access our app with the host ip address. There are no ip address for the container. Only the host IP address is used.
+* Due to that, only one container is attached or port forwarded to this host IP.
+* It's less secure as we are directly accessing it with the host IP.
+
+
+
+3. None:
+--------
+
+* Complete isolation of the containers.
+* We can use this when there is no need for communication for the containers.
+* Highly secure. Because there are no network connections.

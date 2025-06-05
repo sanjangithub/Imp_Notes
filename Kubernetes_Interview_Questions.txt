@@ -1,0 +1,281 @@
+What is Kubernetes?
+
+Kubernetes is a container orchestration tool designed by Google. It helps to run our container application in a cluster of nodes(Which are called docker hosts). It helps to automatically scale the nodes for smooth running and high availability of our application. It can provision the nodes for us and scales them up and down depending on the incoming traffic. And it can automatically create another node if the previous one got destroyed for some reason.
+
+
+What is a Pod in Kubernetes?
+
+In Kubernetes, a Pod is the smallest and most fundamental unit of deployment. Which is present inside the host. A pod is like an abstraction layer on the docker containers. What are the kubectl commands we give, That will get applied upon the pod. There can be more than one docker container present in a single pod.
+
+Container: A single application with all its dependencies packaged together.
+Pod: A group of related containers that work together as a single unit.
+
+
+How does Kubernetes handle container scaling?
+
+In Kubernetes we have deployment and replicasets. We can give how many pods should always be available for us. In the kubernetes manifest file we can mention how many replicas of our pods should always be available. An we also have auto scaling policies in the kubernetes which we need to configure. When we enable it, Kubernetes will automatically scale them up & down with the necessity of incoming traffic.
+
+1. HPA -> Horizontal Pod Autoscaling & 2. VPA -> Vertical Pod Autoscaling
+
+HPA ensures you have the right number of Pods to handle the current workload.   
+VPA ensures each Pod has the right amount of resources to perform its tasks efficiently.
+
+HPA can add more pods to match the demand.
+
+HPA: If traffic to your website increases, HPA will automatically create more Pods (web server instances) to handle the additional requests.   
+
+VPA: If you notice that some Pods are consistently running out of memory, VPA will automatically increase the memory limit for those Pods, allowing them to handle more requests without crashing.
+
+
+what is kubectl?
+
+Kubectl is in the worker node that constantly communicates with the master node. It receives information from the master node to start, stop, and create the pods in the nodes. It constantly reports the health status of the pods. And constantly sends information about the resource utilization of the pods like disk space, CPU & Memory usage.
+
+The master node utilizes this info send by the kubectl for auto scaling the pods, which pods should get scheduled into the node & efficient resource allocation across the cluster
+
+
+Explain the difference between a StatefulSet and a Deployment.
+
+when we are creating the nodes we will mention in the file of how many deployments we need. But for some reason the pods got deleted in the node. So kubenetes have self-healing mechanism so it will create another pod in that place. But for some applications we need specific naming convictions. for example stateful applications. If the naming convention is different each time the pod gets created it will be difficult. So have the steady naming convention we need statefulsets. In deployment each time it creates a new pod the pod name will get changed. But statefulset takes the help of replicaset controller it will create the pod which has the same name. For this stateful sets need persistant volume to store the information. But for the deployments it is not necessary. The statefulset creates and deletes the pods in a particular order. Once pod one is creation is completed then it starts creating another pod. it follows a sequential order for both creation and deletion. But deployment will create and delete the pods ramdomly. It doesn't has any particula order to follow.
+
+
+How does Kubernetes manage configuration?
+
+In Kubernetes we have configMaps to store the necessary configurations for our application. We can use ConfigMaps to store the Non-Sensitive data for our applications. So what are all the configurations we need we can provide using yaml file. If application needs any configurations it will come to this yaml file and get the respective configurations. So we can manage configurations through our yml file in Kubernetes. Using configmaps it is easy to update our configuration for our application.
+
+And Kubernetes also has secrets to manage passwords and store the certificates for our application. This secret is used to store sensitive information of our application like db passwords, certificates. 
+
+Config maps have key-pair values for storing different values like environment variables or mounted files. 
+
+Both configmaps & secrets are applied on Kubernetes cluster using kubectl. Kubernetes tracks changes in these resources, triggering updates in Pods without needing changes to the application code.
+
+
+Describe the role of a Master node in Kubernetes?
+
+The master node is the one that assigns the work to the worker nodes. Master node will do the scheduling & assigning tasks like How many nodes should be there in a cluster, How many pods should be present in each node, How each pod must use the resources etc. 
+
+The Master node is the brain of the Kubernetes cluster. It's responsible for managing and orchestrating all the nodes and Pods within the cluster.
+
+There are 4 components in the master node.
+
+API Server: This is the entry point for all communication within the cluster. It handles all API requests (e.g., creating Pods, deploying Deployments) and authenticates and authorizes those requests.
+
+Scheduler: The Scheduler is responsible for deciding which node is the best fit to run a newly created Pod. It considers factors like resource availability, node health, and pod affinity/anti-affinity rules.
+
+Controller Manager: This component runs various control loops that ensure the desired state of the cluster is maintained. 
+These include:
+Node Controller: Monitors the health of nodes and removes nodes that are unresponsive.
+Deployment Controller: Ensures that the desired number of Pods for each Deployment is running.
+ReplicaSet Controller: Ensures that the desired number of Pods for each ReplicaSet is running.
+Service Account Controller: Manages service accounts for Pods.
+
+etcd: This is a highly available, distributed key-value store that stores all the cluster's configuration, state, and objects. It's critical for the overall operation and consistency of the cluster. 
+
+Book definition:- Kubernetes master node components can be run within Kubernetes itself, as a set of containers within the dedicated pod. The master node is responsible for cluster management and for providing the API that is used to configure and manage resources within the Kubernetes cluster.
+
+
+
+What is the role of the kube-proxy in Kubernetes and how does it facilitate communication between Pods?
+
+When the container or board wants to communicate with another pod in another node it will determine the shortest way to communicate with the other pod without any latency to determine the path efficiently Kubernetes worker nodes uses Kube-proxy.
+
+How Kube-Proxy Facilitates Communication Between Pods?
+   
+Network routing: Traffic is directed to the appropriate Pods based on the Service definition.
+Kube-Proxy can use different network policies to route traffic, such as:
+IPVS (IP Virtual Server): A high-performance network layer load balancer that can handle high traffic volumes.
+iptables: Linux's built-in firewall rules to route traffic.
+
+
+We know that we can delete or restart the pods anytime we want. Due to this type of nature, we do not have a stable IP address for our pods. So Kubernetes services come into play. This kuberntes services will provide a stable IP address to enable communication for a group of pods in node. So how this services will provide stable ip address for our pods? So this will be done by Kube-proxy. 
+
+When a request comes to a Kubernetes Service, the Service determines which group of Pods should receive the traffic, but it doesn’t forward the request itself. Instead, kube-proxy, which runs on every node, takes over. It uses iptables/IPVS to forward the request to the right Pod and load-balances if multiple Pods are available. If the target Pod is on another node, kube-proxy ensures that the request is properly routed using Kubernetes networking.
+
+
+
+Explain the concept of Ingress in Kubernetes?
+
+Ingress in Kubernetes Is used to expose our app to external traffic. It exposes our app which is in the Kubernetes cluster by acting as an HTTP/HTTPS router. It will take ingress controller help for routing the external traffic. The ingress controller has some rules. Based on the rules it will route the traffic to the appropriate service. Then from service the traffic will be routed to the available pods across the nodes with the help of Kube-poxy. And in the same way the response from the pods to user will be done like from pod -> kube-proxy -> service -> ingress -> user.
+
+So, Ingress is used to expose our application to the external traffic and also acts as an external traffic router inside the kubernetes cluster.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ingress in Kubernetes is used to expose applications to external traffic by acting as an HTTP/HTTPS router. Instead of exposing each Service individually, Ingress provides a single entry point and intelligently routes traffic to the appropriate Service inside the cluster.
+
+It works with an Ingress Controller, which follows predefined rules to determine where the traffic should go. Once the request reaches the correct Service, the traffic is then forwarded to one of the available Pods with the help of kube-proxy. The response follows the reverse path: Pod → kube-proxy → Service → Ingress → User.
+
+So, Ingress not only exposes applications but also efficiently manages external traffic routing within the Kubernetes cluster.
+
+
+
+What is a ConfigMap?
+
+Configmap in Kubernetes is used to store the non-sensitive information such as db url and configuration data which is used by our app. 
+
+The main advantage of the configmap is - This is written in a separate file. So it decouples the application code and the configurations. When if there is any change in the configurations we can just add the changes in the file and do the necessary updates instead of rebuilding the application image from scratch. 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+A ConfigMap in Kubernetes is used to store non-sensitive configuration data, like database URLs or application settings, that our app needs.
+
+The key advantage of ConfigMaps is that they separate configuration from the application code. Since configurations are stored in a separate file, any changes can be made directly to the ConfigMap without rebuilding the application image. This makes updates more efficient and reduces unnecessary redeployments.
+
+
+
+Describe the role of etcd in Kubernetes.
+
+etcd db in kubernetes is a component of master node. Worker node will constantly send the nodes information to the master node with the help of kubectl. This information will be received by the API server and stores it in the etcd db. In etcb db every information about the worker nodes will be stored in the form of Key-Value pair. It is a very high-available db storage for checking all the information about the worker nodes.
+
+etcd is a key component of the Kubernetes control plane, acting as the database for cluster state storage. It is a highly available, distributed key-value store that holds all cluster-related information.
+
+In Kubernetes, worker nodes constantly send status updates to the master node. These updates are received by the API server, which then stores them in etcd. This includes details like node health, pod deployments, and configuration changes.
+
+Since etcd ensures a consistent and reliable store of cluster data, it plays a critical role in maintaining cluster state and enabling Kubernetes to make scheduling and scaling decisions.
+
+
+
+How do rolling updates work in a Deployment?
+
+A Rolling Update in Kubernetes allows us to update an application without downtime by replacing old Pods with new ones gradually. The Deployment creates new Pods, checks if they’re healthy, and then removes the old ones step by step. This way, the app remains available, and we can control how fast the update happens. If anything goes wrong, we can easily rollback to the previous version.
+
+
+
+Explain the use of Labels and Selectors in Kubernetes.
+
+Labels in kubernetes are like tags. It labels the objects like pods, nodes, services with the tag name mentioned in our yml file. And selectors are used to organize and manage these objects based on the labels. or example, a Service uses Selectors to send traffic only to the Pods with a specific label. This makes Kubernetes highly efficient in managing resources.
+
+
+
+What is a Persistent Volume (PV) in Kubernetes?
+
+We know that pods in kubernetes can be deleted & restarted. Whenever the pod gets restated or deleted the data present in them will be lost. But in some situations we need to store our data either the pod gets deleted or restarted. So in such a case we can go for persistent volumes. These are a storage resource which are separated from the pods. So when the pods get deleted we can use these PV to store our data. We can mountain these whenever we need them
+
+In Kubernetes, Pods can be deleted or restarted, which means any data stored inside them will be lost. But sometimes, we need data to persist even after a Pod is gone. This is where Persistent Volumes (PVs) come in. PVs are separate storage resources that exist independently of Pods. So, even if a Pod is deleted, the data stays safe. We can mount these PVs to our Pods whenever needed, ensuring our data remains available.
+
+
+Explain the differences between a DaemonSet and a ReplicaSet.
+
+Both are used to create the replicas or copies of our application. But the difference is in the scheduling of pods into the nodes.
+
+Replicasets will create the pods which we need to have. For example if we want 3 pods that should be available any time then replicaset will maintain 3 copies for availability. The daemonset functionality is also similar when compared to replicasets.
+
+But replica set will assign the pods very randomly, i.e for instance i have 3 nodes & 3 pods. Replicaset will assign 2pods in two nodes it leaves the third one. Or some times it will assign all the 3 pods in each node. It doesn't follow any particular order. But what if we need an particular order like each pod in each node. Then we can go for daemon set. It ensure each pod is assigned in each node. This is what the difference between them.
+
+Both DaemonSet and ReplicaSet create multiple copies (replicas) of our application, but the difference lies in how they schedule Pods across nodes."
+
+ReplicaSet → Maintains a specific number of Pods at all times. If we set 3 replicas, Kubernetes ensures there are always 3 Pods running. However, ReplicaSet does not care where the Pods are placed—they might all go to one node or be spread randomly across nodes.
+
+DaemonSet → Ensures exactly one Pod per node (or more, if specified). This is useful for system-level Pods (like monitoring agents or log collectors) that need to run on every single node in the cluster. Even when new nodes join, DaemonSet automatically adds a Pod to them.
+
+Key Difference → ReplicaSet focuses on maintaining a fixed number of Pods, while DaemonSet ensures Pods are evenly distributed across nodes, typically one per node.
+
+
+
+What is the role of the kube-scheduler in Kubernetes?
+
+Kube-scheduler is a key component of the Kubernetes control plane responsible for assigning Pods to the most suitable Nodes.
+
+When new Pods are created and are not yet assigned to any Node, they remain in a Pending state. The scheduler continuously monitors the cluster’s Nodes, considering factors like resource availability (CPU, memory) and node constraints. Based on this information, it assigns Pods efficiently, ensuring even distribution across Nodes and preventing any single Node from becoming overloaded
+
+
+
+Describe how a Horizontal Pod Autoscaler (HPA) works.
+
+HPA in Kubernetes is used to automatically scale the number of Pods based on resource usage like CPU and memory. Kubernetes constantly monitors the Pod’s resource usage using the metrics server. In the YAML file, we define rules like "scale up if CPU usage crosses 70%". If traffic increases, HPA will add more Pods to handle the load, and if traffic decreases, it will remove extra Pods to save resources. This ensures our app runs smoothly without wasting resources. But remember, HPA only scales Pods, not Nodes—scaling Nodes is done by the Cluster Autoscaler.
+
+
+
+Explain the concept of Custom Resources in Kubernetes.
+
+Custom Resources in Kubernetes let you extend the Kubernetes API with your own resource types. Like pods, nodes & deployments in Kubernetes we can define our own resources like them. We can define them using CustomResourceDefinition file. Once they are created we can manage them with normal kubectl commands. We can also write custom controllers to those resources. These are called "operators". These operators can watch for the changes in these resources and perform automated actions.
+
+
+
+How does Kubernetes handle security and access control?
+
+For the applications related things in kubernetes we have secrets for storing the application db passwords, app connection certificates. In the secrets we can store sensitive data. 
+
+For the teams we can assign the role-based access to them. So for example development team has few accesses and the manager will have some more extra access. So with this we can only give limited access to the teams to access the resources.
+
+-----------------------------------------
+
+Kubernetes handles security and access control in multiple ways. For application-related security, Secrets are used to store sensitive data like database passwords, API keys, and certificates securely. Instead of hardcoding them in the app, we can store them in Secrets and mount them to Pods when needed.
+
+For access control within the cluster, Kubernetes uses Role-Based Access Control (RBAC). This allows us to define different roles and permissions for teams. For example, a developer might have limited access to specific resources, while a manager might have broader access. This way, we can control who can do what in the cluster, keeping things secure and well-organized.
+
+
+
+
+What is a Network Policy in Kubernetes?
+
+Network policies in Kubernetes are a set of rules that are applied on pod communication. By default pods in Kubernetes can able to communicate with themselves. but with a network policy applied to them we can add some limits or restrictions to them with labels namespaces or ip blocks.
+
+For example, if we only want the frontend Pods to talk to the backend Pods but block all other traffic, we can define a Network Policy for that. These policies are enforced by network plugins (like Calico, Cilium, etc.), not kube-proxy.
+
+
+
+Describe the role of a kube-proxy in the cluster.
+
+Kube-proxy is an important component running on all worker nodes. It helps route traffic inside the cluster by directing requests from one Pod to another or from external sources to the right Pods. It does this using IPtables & IPVS-based network routing rules.
+
+If a Pod needs to communicate with another Pod in the same or a different node, kube-proxy ensures that the request reaches the right destination by leveraging Kubernetes networking. It also handles load balancing for Services, making sure traffic is evenly distributed across multiple Pods.
+
+
+
+What is a Helm chart, and how is it used?
+
+Helm charts are like a package manager for Kubernetes. This will use a packaging format called charts. These helm charts have all the configurations like pods, deplyments, replicasets, services etc. Instead of writing all the yml files individually we can go for the helm charts where all the pre-configured default template will be present. With simple helm commands like helm create, helm install, helm upgrade we can deploy, update, and revert changes easily. It can reuse the same helm chart for different environments.
+
+
+
+Explain the concept of Taints and Tolerations in Kubernetes.
+
+
+Taints are the rules which are applied on the nodes. Based on these rules, Some certain pods will not get assigned to the nodes unless those pods have matching tolerance or permissions.
+
+kubectl taint nodes my-node key=value:NoSchedule -->  It means only Pods with a matching toleration can be scheduled on my-node.
+
+Tolerations on the other hand will applied on the pods. These pods have the tolerance to get assigned to the tainted nodes.
+
+So, Taints restrict Pods, and Tolerations allow Pods to bypass those restrictions when necessary. 
+
+
+
+
+
+Kubernetes manages storage orchestration by allowing applications to use different types of storage dynamically without worrying about the underlying infrastructure. It does this using Persistent Volumes (PVs) and Persistent Volume Claims (PVCs).
+
+Persistent Volumes (PV):
+-------------------------
+These are storage resources provisioned at the cluster level.
+They can be backed by cloud storage (AWS EBS, GCP Persistent Disk), NFS, local disks, etc.
+
+Persistent Volume Claims (PVC):
+--------------------------------
+Applications request storage through PVCs, which are matched to available PVs.
+PVCs allow Pods to claim storage without knowing the underlying storage details.
+
+Storage Classes:
+-----------------
+Define different types of storage (fast SSD, slow HDD, etc.).
+Helps in dynamic provisioning of storage without manually creating PVs.
+
+CSI (Container Storage Interface):
+-----------------------------------
+Allows third-party storage providers (Ceph, Portworx, etc.) to integrate seamlessly with Kubernetes.
+
+Kubernetes storage orchestration automates storage provisioning, attachment, and management, ensuring high availability and scalability for applications.
+
+
+
+
+
+Describe the use of init containers in Kubernetes.
+
+Init containers a special containers which will run before the main application containers starts in the pod.
+
+We can use these containers for some tasks that needs to be completed before the app starts running like downloading dependencies, set up configurations, waiting for a database to be ready etc.
+
+Init containers execute sequentially one after another. Each must complete successfully before moving to the next one. If an init container fails, the pod won’t start, preventing broken applications from running.
