@@ -155,7 +155,7 @@ docker run -d --name <custom name of the container> -net host <image name> or do
 
 docker start -a <our-custome-container-name>
 ---------------------------------------------
---> This is useful for running the class files directly. It's not suitable for the jar or war files where it has all the configurations. - The -a flag attaches your terminal so you can see the output (especially important for CLI apps like yours).
+--> This is useful for running the class files directly. It's not suitable for the jar or war files where it has all the configurations. - The -a flag attaches your terminal so you can see the output (especially important for CLI apps like yours). This means: you're working with a raw '.class' file, not an executable JAR like 'app.jar'
 
 
 
