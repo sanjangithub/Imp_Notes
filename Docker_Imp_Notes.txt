@@ -153,6 +153,11 @@ docker run -d --name <custom name of the container> -net host <image name> or do
 - If security is the concern then better go for bridge as the communication will be done securely.
 
 
+docker start -a <our-custome-container-name>
+---------------------------------------------
+--> This is useful for running the class files directly. It's not suitable for the jar or war files where it has all the configurations. - The -a flag attaches your terminal so you can see the output (especially important for CLI apps like yours).
+
+
 
 docker ps  --> To get the list of running containers.
 ----------
