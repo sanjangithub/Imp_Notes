@@ -131,6 +131,9 @@ docker create --name <custom name of the container> <image name>  --> To create 
 docker start  --> To start the container or to run.
 ------------
 
+docker start -a <container-name> --> To attach the terminal to the already existing container.
+--------------------------------
+
 
 docker stop --> To stop the container.
 -----------
