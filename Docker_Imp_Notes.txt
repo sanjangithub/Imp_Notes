@@ -131,8 +131,13 @@ docker create --name <custom name of the container> <image name>  --> To create 
 docker start  --> To start the container or to run.
 ------------
 
+
 docker start -a <container-name> --> To attach the terminal to the already existing container.
 --------------------------------
+
+
+docker run -it --rm <image-name>  --> To create and start the container. And the --rm will delete the container after the use. -it is used for interactive terminal for giving user input.
+---------------------------------
 
 
 docker stop --> To stop the container.
